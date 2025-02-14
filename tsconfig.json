@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "strict": true,
+      "esModuleInterop": true,
+      "noImplicitAny": true,
+      "outDir": "./dist",
+      // "rootDir": "./src",
+      "baseUrl": "./",
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "strictPropertyInitialization": false,
+      
+      "paths": {
+        "@src/*": ["src/*"],
+        "@services": ["src/services/index.ts"],
+        "@shared/*": ["src/shared/*"]
+      }
+    },
+    "include": ["src/**/*"],
+   "exclude": [
+      "src/public/"
+    ]
+  }
+  

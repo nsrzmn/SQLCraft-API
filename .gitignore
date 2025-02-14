@@ -1,0 +1,9 @@
+config/config.json
+# Dependency directories
+node_modules/
+
+# dotenv environment variables file
+# .env*
+dist/
+
+# package-lock.json

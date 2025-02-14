@@ -1,0 +1,49 @@
+{
+  "name": "dummy",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "./node_modules/.bin/ts-node -r tsconfig-paths/register src/index.ts",
+    "lint": "eslint . --ext .ts",
+    "start": "node -r module-alias/register ./dist --env=production",
+    "dev": "ts-node -r tsconfig-paths/register ./src/config/database.ts && nodemon",
+    "test": "nodemon --config ./spec/nodemon.json",
+    "test:no-reloading": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./spec"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts, html",
+    "ignore": [
+      "src/public"
+    ],
+    "exec": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^20.12.8",
+    "@types/nodemailer": "^6.4.15",
+    "@types/validator": "^13.11.9",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "joi": "^17.13.3",
+    "mysql2": "^3.10.1",
+    "sequelize-typescript": "^2.1.6",
+    "typescript": "^5.5.2"
+  }
+}
