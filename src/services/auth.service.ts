@@ -1,6 +1,6 @@
 import { User } from "@src/models/user.model";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 export class AuthService {
     public register = async (data: any): Promise<any> => {

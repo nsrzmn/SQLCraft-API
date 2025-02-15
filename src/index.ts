@@ -5,6 +5,7 @@ import * as dotenv from "dotenv";
 import { sequelize } from "../src/config/database";
 import { routes } from "./routes/routes";
 import * as http from "http";
+import { authenticateUser } from "./utils/auth.middleware";
 
 dotenv.config({ path: ".env" });
 
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api", routes);
+app.use("/api/auth", authenticateUser, routes);
 
 export const server: http.Server = http.createServer(app);
 
