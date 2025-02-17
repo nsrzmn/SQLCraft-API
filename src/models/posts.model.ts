@@ -1,45 +1,50 @@
 import {
   AutoIncrement,
+  BelongsTo,
   Column,
   DataType,
-  HasMany,
+  ForeignKey,
+  HasOne,
   Model,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
-import { Posts } from "./posts.model";
+import { User } from "./user.model";
 
-export interface userI {
+export interface postsI {
   id?: number;
-  username?: string;
-  email?: string;
-  password?: string;
+  userId?: number; // foreign key from users  
+  title?: string;
+  content?: string;
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date | null;
 }
 
 @Table({
-  modelName: "User",
-  tableName: "users",
+  modelName: "posts",
+  tableName: "posts",
   timestamps: true,
   paranoid: true,
 })
-export class User extends Model<userI> {
+export class Posts extends Model<postsI> {
+  @BelongsTo(() => User)
+  public user: User;
 
   @PrimaryKey
   @AutoIncrement
   @Column(DataType.BIGINT)
   public id: number;
 
-  @Column(DataType.STRING)
-  public username: string;
+  @ForeignKey(()  => User)
+  @Column(DataType.BIGINT)
+  public userId: number;
 
   @Column(DataType.STRING)
-  public email: string;
+  public title: string;
 
-  @Column(DataType.STRING)
-  public password: string;
+  @Column(DataType.TEXT)
+  public content: string;
 
   @Column(DataType.DATE)
   public createdAt: Date;
@@ -50,8 +55,6 @@ export class User extends Model<userI> {
   @Column(DataType.DATE)
   public deletedAt: Date;
 
-  @HasMany(() => Posts)
-  public posts: Posts[];  
 
 }
 
