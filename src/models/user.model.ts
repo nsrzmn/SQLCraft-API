@@ -14,12 +14,14 @@ export interface userI {
   password?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  deletedAt?: Date | null;
 }
 
 @Table({
   modelName: "User",
   tableName: "users",
   timestamps: true,
+  paranoid: true,
 })
 export class User extends Model<userI> {
 
@@ -42,6 +44,9 @@ export class User extends Model<userI> {
 
   @Column(DataType.DATE)
   public updatedAt: Date;
+
+  @Column(DataType.DATE)
+  public deletedAt: Date;
 
 }
 

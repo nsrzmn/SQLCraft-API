@@ -1,6 +1,5 @@
 import { AuthService } from "@src/services/auth.service";
-import { DummyService } from "@src/services/dummy.service";
-import { dummyFunctionSchema } from "@src/shared/common/validators/dummy.validators";
+import { registerFunctionSchema } from "@src/shared/common/validators/auth.validator";
 import { Request, Response } from "express";
 
 export class AuthController {
@@ -20,8 +19,8 @@ export class AuthController {
     try {
       const { body } = req;
       let message = "User registered.";
-      // const data = await dummyFunctionSchema.validateAsync(body);
-      const response: any = await this.__service.register(body);
+      const data = await registerFunctionSchema.validateAsync(body);
+      const response: any = await this.__service.register(data);
 
       res.status(200).json({
         statusCode: 200,
