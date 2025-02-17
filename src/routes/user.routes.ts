@@ -12,7 +12,7 @@ userRouter.get("/getUserById", (...args: [Request, Response]) =>
 userRouter.post("/updateUserById", (...args: [Request, Response]) =>
   userController.updateUserById(...args)
 );
-userRouter.get("/deleteUserById", (...args: [Request, Response]) =>
+userRouter.delete("/deleteUserById", (...args: [Request, Response]) =>
   userController.deleteUserById(...args)
 );
   
