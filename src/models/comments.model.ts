@@ -4,46 +4,48 @@ import {
   Column,
   DataType,
   ForeignKey,
-  HasMany,
-  HasOne,
   Model,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
 import { User } from "./user.model";
-import { Comments } from "./comments.model";
+import { Posts } from "./posts.model";
 
-export interface postsI {
+export interface CommentsI {
   id?: number;
-  userId?: number; // foreign key from users  
-  title?: string;
+  userId?: number;
+  postId?: number;
   content?: string;
   createdAt?: Date;
   updatedAt?: Date;
-  deletedAt?: Date | null;
+  deletedAt?: Date |  null;
 }
 
 @Table({
-  modelName: "posts",
-  tableName: "posts",
+  modelName: "comments",
+  tableName: "comments",
   timestamps: true,
   paranoid: true,
 })
-export class Posts extends Model<postsI> {
-  @BelongsTo(() => User)
-  public user: User;
+export class Comments extends Model<CommentsI> {
+  @BelongsTo((): typeof User => User)
+  public users: typeof User;
+
+  @BelongsTo((): typeof Posts => Posts)
+  public posts: typeof Posts;
 
   @PrimaryKey
   @AutoIncrement
   @Column(DataType.BIGINT)
   public id: number;
 
-  @ForeignKey(()  => User)
+  @ForeignKey((): typeof User => User)
   @Column(DataType.BIGINT)
   public userId: number;
 
-  @Column(DataType.STRING)
-  public title: string;
+  @ForeignKey((): typeof Posts => Posts)
+  @Column(DataType.BIGINT)
+  public postId: number;
 
   @Column(DataType.TEXT)
   public content: string;
@@ -57,8 +59,5 @@ export class Posts extends Model<postsI> {
   @Column(DataType.DATE)
   public deletedAt: Date;
 
-  @HasMany(() => Comments)
-  public comments: Comments[];  
 
 }
-

@@ -8,6 +8,7 @@ import {
   Table,
 } from "sequelize-typescript";
 import { Posts } from "./posts.model";
+import { Comments } from "./comments.model";
 
 export interface userI {
   id?: number;
@@ -52,6 +53,9 @@ export class User extends Model<userI> {
 
   @HasMany(() => Posts)
   public posts: Posts[];  
+
+  @HasMany(() => Comments)
+  public comments: Comments[];  
 
 }
 
