@@ -52,14 +52,7 @@ The full API documentation is available on **Postman**:
 
 ## 🔑 Authentication & Authorization
 - All endpoints (except registration & login) require a **JWT token**.
-- Use the token in the `Authorization` header:  
-Authorization: Bearer YOUR_ACCESS_TOKEN
 
-yaml
-Copy
-Edit
-
----
 
 ## 🛠 Setup & Run Locally
 ### 📌 Install dependencies:
@@ -88,17 +81,5 @@ This project is licensed under the MIT License.
 📩 Contact
 For questions or issues, feel free to reach out! 😊
 
-yaml
-Copy
-Edit
 
 ---
-
-### 🚀 **How to Use This?**
-1. **Copy** the code above.
-2. **Paste** it into your `README.md` file.
-3. **Save & Push** it to GitHub:
-   ```bash
-   git add README.md
-   git commit -m "Updated API documentation"
-   git push origin main
