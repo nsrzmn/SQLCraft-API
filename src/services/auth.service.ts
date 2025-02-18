@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export class AuthService {
+
     public register = async (data: any): Promise<any> => {
         const exsitingUser = await User.findOne({
             where: {
@@ -30,6 +31,35 @@ export class AuthService {
         });
 
         return { token };
+    }
+
+    public login = async (data:any): Promise<any> => {
+        const user = await User.findOne({
+            where: {
+                email: data.email
+            }
+        });
+        if(!user) {
+            throw new Error("User not found.");
+        }
+
+        const passwordMatch = await bcrypt.compare(data.password, user.password);
+        if (!passwordMatch) {
+            throw new Error("Invalid password.");
+        }
+
+        if (!process.env.JWT_SECRET) {
+            throw new Error("JWT_SECRET is not defined.");
+        }
+
+        const token = jwt.sign({
+            id: user.id,
+            email: user.email},
+            process.env.JWT_SECRET, {
+                expiresIn: "1d"
+        });
+
+        return token;
     }
 }
   
