@@ -38,6 +38,7 @@ export class UserController {
   public getUserById = async (req: Request, res: Response) => {
     try {
       const { params } = req;
+
       let message = "getUserById function executed.";
       const data = await getUserByIdFunctionSchema.validateAsync(params);
       

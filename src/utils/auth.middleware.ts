@@ -2,13 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 // import { admin, employee, users } from "@src/models";
 interface AuthenticatedRequest extends Request {
-//   user?: users;
+  user?: {id: number, email: string};
 }
-interface DecodedToken {
-  id: number;
-  role: any;
-}
-const excludedUrls = ["/api/auth/login", "/api/auth/register"
+const excludedUrls = ["/api/v2/auth/login", "/api/v2/auth/register", "/api/v2/users"
 ];
 export const authenticateUser = async (
   req: AuthenticatedRequest,
@@ -16,17 +12,34 @@ export const authenticateUser = async (
   next: NextFunction
 ) => {
   try {
-    var userData: any;
+    
     console.log("originalUrl", req.originalUrl);
     if (
-      excludedUrls.includes(req.originalUrl) ||
-      req.originalUrl.startsWith("/api/getAppInfo")
-    ) {
+      excludedUrls.includes(req.originalUrl)) {
       next();
       return;
     }
-    // const token = req.header("Authorization")?.replace("Bearer ", "");
-    // console.log("Token:", token);
+
+    const token = req.header("Authorization")?.replace("Bearer ", "");
+    if (!token || token.length == 0) {
+      return res
+        .status(401)
+        .json({ message: "Authorization token not provided" });
+    }
+
+    if (!process.env.JWT_SECRET) {
+      return res.status(401).json({ message: "Secret key not provided" });
+    }
+
+    const decoded: any  = jwt.verify(token, process.env.JWT_SECRET) as {id: number, email: string};
+
+    req.user = {
+      id: decoded.id,
+      email: decoded.email
+    };
+    console.log("decoded", req.user);
+
+    next();
     // if (!token || token.length == 0) {
     //   return res
     //     .status(401)
@@ -49,7 +62,6 @@ export const authenticateUser = async (
     //   return res.status(401).json({ message: "User not found" });
     // }
     // req.user = userData;
-    next();
   } catch (error: any) {
     return res.status(401).json({ message: "Token is invalid or expired." });
   }
