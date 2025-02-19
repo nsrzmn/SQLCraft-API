@@ -24,8 +24,8 @@ export class UserService {
         return user;
     };
 
-    public updateUserById = async (data:any): Promise<User> => {
-        const user = await User.findOne({ where: { id: data.id }, attributes: ["id", "username", "email"] });
+    public updateUserById = async (id:number, data:any): Promise<User> => {
+        const user = await User.findOne({ where: { id }, attributes: ["id", "username", "email"] });
 
         if (!user) {
             throw new Error("No users found.");
@@ -43,7 +43,7 @@ export class UserService {
     };
 
     public deleteUserById = async (data:any): Promise<User> => {
-        const user = await User.findOne({ where: { id: data.id }});
+        const user = await User.findOne({ where: { id: data.id }, attributes: ["id", "username", "email"] });
 
         if (!user) {
             throw new Error("No users found.");

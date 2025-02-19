@@ -3,16 +3,16 @@ import { dummyController, userController } from "../controllers";
 
 export const userRouter: Router = Router();
 
-userRouter.get("/getAllUsers", (...args: [Request, Response]) =>
+userRouter.get("/users", (...args: [Request, Response]) =>
   userController.getAllUsers(...args)
 );
-userRouter.get("/getUserById", (...args: [Request, Response]) =>
+userRouter.get("/users/:id", (...args: [Request, Response]) =>
   userController.getUserById(...args)
 );
-userRouter.post("/updateUserById", (...args: [Request, Response]) =>
+userRouter.patch("/users/:id", (...args: [Request, Response]) =>
   userController.updateUserById(...args)
 );
-userRouter.delete("/deleteUserById", (...args: [Request, Response]) =>
+userRouter.delete("/users/:id", (...args: [Request, Response]) =>
   userController.deleteUserById(...args)
 );
   

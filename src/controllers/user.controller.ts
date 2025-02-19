@@ -17,7 +17,6 @@ export class UserController {
 
   public getAllUsers = async (req: Request, res: Response) => {
     try {
-      const { query } = req;
       let message = "getAllUsers function executed.";
       // const data = await getAllUsersFunctionSchema.validateAsync(query);
       
@@ -38,9 +37,9 @@ export class UserController {
 
   public getUserById = async (req: Request, res: Response) => {
     try {
-      const { query } = req;
+      const { params } = req;
       let message = "getUserById function executed.";
-      const data = await getUserByIdFunctionSchema.validateAsync(query);
+      const data = await getUserByIdFunctionSchema.validateAsync(params);
       
       const response: any = await this.__service.getUserById(data);
       res.status(200).json({
@@ -59,11 +58,13 @@ export class UserController {
 
   public updateUserById = async (req: Request, res: Response) => {
     try {
+      const { id } = req.params;
       const { body } = req;
       let message = "updateUserById function executed.";
       const data = await updateUserByIdFunctionSchema.validateAsync(body);
       
-      const response: any = await this.__service.updateUserById(data);
+      
+      const response: any = await this.__service.updateUserById(Number(id), data);
       res.status(200).json({
         statusCode: 200,
         message,
@@ -80,9 +81,9 @@ export class UserController {
 
   public deleteUserById = async (req: Request, res: Response) => {
     try {
-      const { query } = req;
+      const { params } = req;
       let message = "deleteUserById function executed.";
-      const data = await deleteUserByIdFunctionSchema.validateAsync(query);
+      const data = await deleteUserByIdFunctionSchema.validateAsync(params);
       
       const response: any = await this.__service.deleteUserById(data);
       res.status(200).json({

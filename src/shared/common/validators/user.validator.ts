@@ -10,7 +10,7 @@ export const getUserByIdFunctionSchema = Joi.object({
 });   
 
 export const updateUserByIdFunctionSchema = Joi.object({
-  id: Joi.number().required(),
+  // id: Joi.number().required(),
   username: Joi.string().optional().allow(""),
   email: Joi.string().optional().allow("")
 });   
