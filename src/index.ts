@@ -22,8 +22,8 @@ app.use((req, res, next) => {
   express.json({ limit: "10mb" })(req, res, next);
 });
 
-app.use("/api", routes);
-app.use("/api/auth", authenticateUser, routes);
+app.use("/api/v2/", routes);
+app.use("/api/v2/auth", authenticateUser, routes);
 
 export const server: http.Server = http.createServer(app);
 
