@@ -1,6 +1,7 @@
 import { CommentsService } from "@src/services/comments.service";
 import { createCommentFunctionSchema, delCommentFunctionSchema, getAllCommentsForPostFunctionSchema, updateCommentFunctionSchema } from "@src/shared/common/validators/comments.validatior";
 import { createPostFunctionSchema, delPostFunctionSchema, getPostsByIdFunctionSchema, updatePostFunctionSchema } from "@src/shared/common/validators/posts.validators";
+import { AuthenticatedRequest } from "@src/utils/auth.middleware";
 import { Request, Response } from "express";
 
 export class CommentsController {
@@ -16,12 +17,12 @@ export class CommentsController {
    * @param next
    */
 
-  public createComment = async (req: Request, res: Response) => {
+  public createComment = async (req: AuthenticatedRequest, res: Response) => {
     try {
-      const { body } = req;
+      const { body, user} = req;
       let message = "createComment function executed.";
       const data = await createCommentFunctionSchema.validateAsync(body);
-      const response: any = await this.__service.createComment(data);
+      const response: any = await this.__service.createComment(data, user);
 
       res.status(200).json({
         statusCode: 200,
@@ -38,9 +39,9 @@ export class CommentsController {
 
   public getAllCommentsForPost = async (req: Request, res: Response) => {
     try {
-      const { query } = req;
+      const { params } = req;
       let message = "getAllCommentsForPost function executed.";
-      const data = await getAllCommentsForPostFunctionSchema.validateAsync(query);
+      const data = await getAllCommentsForPostFunctionSchema.validateAsync(params);
       const response: any = await this.__service.getAllCommentsForPost(data);
 
       res.status(200).json({
@@ -56,12 +57,12 @@ export class CommentsController {
     }
   };
 
-  public updateComment = async (req: Request, res: Response) => {
+  public updateComment = async (req: AuthenticatedRequest, res: Response) => {
     try {
-      const { body } = req;
+      const { body, user, params } = req;
       let message = "updateComment function executed.";
       const data = await updateCommentFunctionSchema.validateAsync(body);
-      const response: any = await this.__service.updateComment(data);
+      const response: any = await this.__service.updateComment(data, user, Number(params.postId));
 
       res.status(200).json({
         statusCode: 200,
@@ -76,12 +77,12 @@ export class CommentsController {
     }
   };
 
-  public delComment = async (req: Request, res: Response) => {
+  public delComment = async (req: AuthenticatedRequest, res: Response) => {
     try {
-      const { body } = req;
+      const { params, user } = req;
       let message = "delComment function executed.";
-      const data = await delCommentFunctionSchema.validateAsync(body);
-      const response: any = await this.__service.delComment(data);
+      // const data = await delCommentFunctionSchema.validateAsync(body);
+      const response: any = await this.__service.delComment(params, user);
 
       res.status(200).json({
         statusCode: 200,

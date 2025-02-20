@@ -2,12 +2,13 @@ import { Comments } from "@src/models/comments.model";
 import { Posts } from "@src/models/posts.model";
 
 export class CommentsService {
-    public createComment = async (data: any): Promise<any> => {
-        const { userId, postId, content } = data;
+    public createComment = async (data: any, user:any): Promise<any> => {
+        const { postId, content } = data;
+        const userId = user.id;
 
         const post = await Posts.findByPk(postId);
-        if (!post || post.userId !== userId) {
-            throw new Error("Post not found or user not authorized");
+        if (!post ) {
+            throw new Error("Post not found ");
         }
         
         const comment = await Comments.create({
@@ -20,28 +21,29 @@ export class CommentsService {
 
     public getAllCommentsForPost = async (data:any): Promise<any> => {
         const { postId } = data;
-        const comments = await Comments.findAll({
+        const post = await Posts.findAll({
             where: {
-                postId,
-            },
-            attributes: ["id", "userId", "content"],
+                id: postId,
+            }, attributes: ["id", "title", "content"],
             include: [
                 {
-                    model: Posts,
-                    attributes: ["id", "title", "content"],
+                    model: Comments,
+                    attributes: ["id", "userId", "content"],
+                    as: "comments",
                 },
             ],
-        });
-        if (!comments || comments.length === 0) {
-            throw new Error("No comments found for this post");
+        })
+        if (!post || post.length === 0) {
+            throw new Error("No post found for this id");
         }
-        return comments;
+        return post;
     };
 
-    public updateComment = async (data: any): Promise<any> => {
-        const { id, userId, postId, content } = data;
+    public updateComment = async (data: any, user:any, postId:number): Promise<any> => {
+        const { id, content } = data;
+        const userId = user.id;
         const comment = await Comments.findByPk(id);
-        if (!comment || (comment.userId !== userId || comment.postId !== postId)) {
+        if (!comment || (comment.userId !== userId) || (comment.postId !== postId)) {
             throw new Error("Comment not found or user not authorized");
         }
 
@@ -51,10 +53,11 @@ export class CommentsService {
         return comment;
     };
 
-    public delComment = async (data: any): Promise<any> => {
-        const { id, userId, postId } = data;
+    public delComment = async (data: any, user:any): Promise<any> => {
+        const id = data.id;
+        const userId = user.id;
         const comment = await Comments.findByPk(id);
-        if (!comment || (comment.userId !== userId || comment.postId !== postId)) {
+        if (!comment || (comment.userId !== userId )) {
             throw new Error("Comment not found or user not authorized");
         }
 

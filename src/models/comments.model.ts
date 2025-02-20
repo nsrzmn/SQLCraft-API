@@ -31,8 +31,8 @@ export class Comments extends Model<CommentsI> {
   @BelongsTo((): typeof User => User)
   public users: typeof User;
 
-  @BelongsTo((): typeof Posts => Posts)
-  public posts: typeof Posts;
+  @BelongsTo(() => Posts)
+  public post: typeof Posts;
 
   @PrimaryKey
   @AutoIncrement

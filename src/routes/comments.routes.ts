@@ -3,19 +3,19 @@ import { commentsController } from "../controllers";
 
 export const commentsRouter: Router = Router();
 
-commentsRouter.post("/createComment", (...args: [Request, Response]) =>
+commentsRouter.post("/comments", (...args: [Request, Response]) =>
   commentsController.createComment(...args)
 );
 
-commentsRouter.get("/getAllCommentsForPost", (...args: [Request, Response]) =>
+commentsRouter.get("/comments/:postId", (...args: [Request, Response]) =>
   commentsController.getAllCommentsForPost(...args)
 );
 
-commentsRouter.post("/updateComment", (...args: [Request, Response]) =>
+commentsRouter.patch("/comments/:postId", (...args: [Request, Response]) =>
   commentsController.updateComment(...args)
 );
 
-commentsRouter.delete("/delComment", (...args: [Request, Response]) =>
+commentsRouter.delete("/comments/:id", (...args: [Request, Response]) =>
   commentsController.delComment(...args)
 );
 

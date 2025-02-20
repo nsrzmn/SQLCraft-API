@@ -1,5 +1,4 @@
 import * as Joi from "joi";
-import { title } from "process";
 
 export default {
   type: "object",

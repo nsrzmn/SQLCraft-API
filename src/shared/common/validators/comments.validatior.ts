@@ -7,7 +7,6 @@ export default {
 } as const;
 
 export const createCommentFunctionSchema = Joi.object({
-  userId: Joi.number().integer().required(),
   postId: Joi.number().integer().required(),
   content: Joi.string().required(),
 });
@@ -18,8 +17,8 @@ export const getAllCommentsForPostFunctionSchema = Joi.object({
 
 export const updateCommentFunctionSchema = Joi.object({
   id: Joi.number().integer().required(),
-  userId: Joi.number().integer().required(),
-  postId: Joi.number().integer().required(),
+  // userId: Joi.number().integer().required(),
+  // postId: Joi.number().integer().required(),
   content: Joi.string().required(),
 });
 
