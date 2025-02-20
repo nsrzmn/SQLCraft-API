@@ -76,3 +76,30 @@ Content-Type: application/json
     "email": "user@example.com",
     "password": "password123"
 }
+
+## **🛠 Technologies Used**
+- **Node.js** (with TypeScript)  
+- **Express.js** (Fast & minimal backend framework)  
+- **Sequelize ORM** (MySQL/PostgreSQL)  
+- **JWT Authentication** (Secure API auth)  
+- **Postman** (API Testing & Documentation)  
+
+---
+
+## **🔍 Future Enhancements**
+✅ **Implement Role-Based Access Control (RBAC)**  
+✅ **WebSockets for Real-time Commenting**  
+✅ **Rate Limiting & Security Enhancements**  
+✅ **GraphQL API Support**  
+
+---
+
+## **📌 Contributors**
+👨‍💻 **Nasir Zaman** - [GitHub Profile](https://github.com/nsrzmn)  
+
+💡 Open to **collaborations & PRs**!
+
+---
+
+## **📜 License**
+This project is licensed under the **MIT License**.
