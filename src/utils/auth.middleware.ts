@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 export interface AuthenticatedRequest extends Request {
   user?: {id: number, email: string};
 }
-const excludedUrls = ["/api/v2/auth/login", "/api/v2/auth/register", "/api/v2/users"
+const excludedUrls = ["/api/v2/auth/login", "/api/v2/auth/register", "/api/v2/users", "/api/v2/posts"
 ];
 export const authenticateUser = async (
   req: AuthenticatedRequest,

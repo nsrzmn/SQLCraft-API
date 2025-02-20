@@ -2,8 +2,10 @@ import { Posts } from "@src/models/posts.model";
 import { User } from "@src/models/user.model";
 
 export class PostsService {
-    public createPost = async (data: any): Promise<any> => {
-        const { title, content, userId } = data;
+    public createPost = async (data: any, user:any): Promise<any> => {
+        const { title, content } = data;
+        const userId = user.id;
+
         const post = await Posts.create({
             title,
             content,
@@ -20,11 +22,13 @@ export class PostsService {
         return post;
     };
 
-    public getPostsById = async (data:any): Promise<any> => {
-        const { id } = data;
+    public getPostsById = async (validatedData:any, user:any): Promise<any> => {
+        if (user.id !== validatedData.id) {
+            throw new Error("You are not authorized to view this post");
+        }
         const post = await Posts.findAll({
             where: {
-                id,
+                userId:user.id,
             },
             include: [
                 {
@@ -39,8 +43,10 @@ export class PostsService {
         return post;
     };
 
-    public updatePost = async (data: any): Promise<any> => {
-        const { title, content, userId, id } = data;
+    public updatePost = async (data: any, user:any): Promise<any> => {
+        const { title, content,  id } = data;
+        const userId = user.id;
+
         const post = await Posts.findOne ({
             where: {
                 id,
@@ -49,7 +55,7 @@ export class PostsService {
             attributes: ["id", "title", "content"],
         });
         if (!post) {
-            throw new Error("Error");
+            throw new Error("Error updating post");
         }
 
         // createing an object to update the post
@@ -67,17 +73,17 @@ export class PostsService {
         return updatedPost;
     };
 
-    public delPost  = async (data: any): Promise<any> => {
+    public delPost  = async (data: any, user:any): Promise<any> => {
         const { userId, id } = data;
         const post = await Posts.findOne ({
             where: {
                 id,
-                userId,
+                userId: user.id,
             },
             attributes: ["id", "title", "content"],
         });
         if (!post) {
-            throw new Error("Error");
+            throw new Error("Error deleting post");
         }
 
         // deleting the post
