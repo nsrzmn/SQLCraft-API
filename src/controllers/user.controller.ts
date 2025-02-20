@@ -1,6 +1,8 @@
 import { UserService } from "@src/services/user.service";
 import { deleteUserByIdFunctionSchema, getUserByIdFunctionSchema, updateUserByIdFunctionSchema } from "@src/shared/common/validators/user.validator";
 import { Request, Response } from "express";
+import { AuthenticatedRequest } from "@src/utils/auth.middleware";
+
 
 export class UserController {
   /**
@@ -35,14 +37,16 @@ export class UserController {
     }
   };
 
-  public getUserById = async (req: Request, res: Response) => {
+  public getUserById = async (req: AuthenticatedRequest, res: Response) => {
     try {
-      const { params } = req;
+      const { params, user } = req;
+      console.log("user", user);
+      
 
       let message = "getUserById function executed.";
       const data = await getUserByIdFunctionSchema.validateAsync(params);
       
-      const response: any = await this.__service.getUserById(data);
+      const response: any = await this.__service.getUserById(data, user);
       res.status(200).json({
         statusCode: 200,
         message,
@@ -57,15 +61,14 @@ export class UserController {
     }
   };
 
-  public updateUserById = async (req: Request, res: Response) => {
+  public updateUserById = async (req: AuthenticatedRequest, res: Response) => {
     try {
-      const { id } = req.params;
-      const { body } = req;
+      const { params, body, user } = req;
       let message = "updateUserById function executed.";
-      const data = await updateUserByIdFunctionSchema.validateAsync(body);
+      const validatedData  = await updateUserByIdFunctionSchema.validateAsync(body);
       
       
-      const response: any = await this.__service.updateUserById(Number(id), data);
+      const response: any = await this.__service.updateUserById(Number(params.id), validatedData, user);
       res.status(200).json({
         statusCode: 200,
         message,
@@ -80,13 +83,13 @@ export class UserController {
     }
   };
 
-  public deleteUserById = async (req: Request, res: Response) => {
+  public deleteUserById = async (req: AuthenticatedRequest, res: Response) => {
     try {
-      const { params } = req;
+      const { params, user } = req;
       let message = "deleteUserById function executed.";
       const data = await deleteUserByIdFunctionSchema.validateAsync(params);
       
-      const response: any = await this.__service.deleteUserById(data);
+      const response: any = await this.__service.deleteUserById(data, user);
       res.status(200).json({
         statusCode: 200,
         message,

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 // import { admin, employee, users } from "@src/models";
-interface AuthenticatedRequest extends Request {
+export interface AuthenticatedRequest extends Request {
   user?: {id: number, email: string};
 }
 const excludedUrls = ["/api/v2/auth/login", "/api/v2/auth/register", "/api/v2/users"
@@ -37,7 +37,6 @@ export const authenticateUser = async (
       id: decoded.id,
       email: decoded.email
     };
-    console.log("decoded", req.user);
 
     next();
     // if (!token || token.length == 0) {
