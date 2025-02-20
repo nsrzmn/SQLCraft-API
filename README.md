@@ -66,16 +66,6 @@ Full API documentation is available on **Postman**:
 - Users can **only modify/delete their own content**.
 - Admin users can **manage all users, posts, and comments**.
 
-### **📌 Example Request (Authentication)**
-#### **Login to get a Token**
-```http
-POST /api/v2/auth/login
-Content-Type: application/json
-
-{
-    "email": "user@example.com",
-    "password": "password123"
-}
 
 ## **🛠 Technologies Used**
 - **Node.js** (with TypeScript)  
