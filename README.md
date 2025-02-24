@@ -4,7 +4,7 @@ Supports **JWT authentication** and **role-based authorization**.
 
 ---
 
-## **🚀 Features**
+## **🚀 Features!!**
 ✅ **User Registration & Login (JWT Authentication)**  
 ✅ **CRUD operations** for Users, Posts, and Comments  
 ✅ **Sequelize ORM** for **MySQL/PostgreSQL**  
