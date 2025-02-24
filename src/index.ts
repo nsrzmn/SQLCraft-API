@@ -24,6 +24,9 @@ app.use((req, res, next) => {
 
 // app.use("/api/v2/", routes);
 app.use("/api/v2/", authenticateUser, routes);
+app.get("/test", (req, res) => {
+  res.send("Hello World");
+});
 
 export const server: http.Server = http.createServer(app);
 
