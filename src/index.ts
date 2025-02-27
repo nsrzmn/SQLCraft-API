@@ -1,3 +1,5 @@
+
+import "module-alias/register"
 import express from "express";
 import cors from "cors";
 import path from "path";
@@ -6,7 +8,6 @@ import { sequelize } from "../src/config/database";
 import { routes } from "./routes/routes";
 import * as http from "http";
 import { authenticateUser } from "./utils/auth.middleware";
-import "module-alias/register"
 
 dotenv.config({ path: ".env" });
 
