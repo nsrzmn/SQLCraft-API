@@ -44,9 +44,15 @@
     "express": "^4.19.2",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "mysql2": "^3.10.1",
     "sequelize": "^6.37.5",
     "sequelize-typescript": "^2.1.6",
     "typescript": "^5.5.2"
+  },
+  "_moduleAliases": {
+    "@src": "dist/src",
+    "@services": "dist/src/services",
+    "@shared": "dist/src/shared"
   }
 }
