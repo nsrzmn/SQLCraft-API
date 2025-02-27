@@ -8,7 +8,7 @@
       "esModuleInterop": true,
       "noImplicitAny": true,
       "outDir": "./dist",
-      // "rootDir": "./src",
+      "rootDir": "./",
       "baseUrl": "./",
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
